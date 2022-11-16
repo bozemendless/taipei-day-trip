@@ -19,12 +19,14 @@ mycursor.execute(sql)
 sql = '''CREATE TABLE `attractions`(
     id bigint primary key auto_increment,
     name varchar(255) not null,
-    CAT varchar(255) not null,
-    MRT varchar(255),
+    category varchar(255) not null,
+    description varchar(2047),
     address varchar(255),
-    file varchar(2047) not null,
-    direction varchar(511),
-    description varchar(2047)
+    transport varchar(511),
+    mrt varchar(255),
+    lat decimal(10,8),
+    lng decimal(11,8),
+    images varchar(2047) not null
 )'''
 
 mycursor.execute(sql)
@@ -36,7 +38,7 @@ with open('./data/taipei-attractions.json', mode='r', encoding='utf-8') as file:
 dataList = data['result']['results']
 
 # Insert records in the `attractions` table
-tableAttributes = ['name', 'CAT', 'MRT', 'address', 'file', 'direction', 'description']
+tableAttributes = ['name', 'CAT', 'description', 'address', 'direction', 'MRT', 'latitude', 'longitude', 'file']
 for attraction in dataList:
     attractionDataList = list(attraction[key] for key in tableAttributes) # Store values of tableAttributes
 
@@ -51,7 +53,7 @@ for attraction in dataList:
     
     # Insert records
     val = tuple(attractionDataList)
-    sql = "INSERT INTO `attractions` (name, CAT, MRT, address, file, direction, description) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO `attractions` (name, category, description, address, transport, mrt, lat, lng, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
     mycursor.execute(sql, val)
     mydb.commit()
