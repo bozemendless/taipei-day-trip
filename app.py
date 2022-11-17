@@ -11,7 +11,7 @@ app.secret_key = '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bc
 mydb = pooling.MySQLConnectionPool(
     host="localhost",
     user="root",
-    password="19931101",
+    password="password",
     database="website",
     pool_name="mypool",
     pool_size=5
@@ -34,7 +34,7 @@ def thankyou():
 # APIs
 @app.route("/api/attractions")
 def attractions():
-    # try:
+    try:
         # # Check if session exists
         # if 'username' not in session:
         #     return redirect('/')
@@ -69,7 +69,6 @@ def attractions():
                 sql += where
             if page != None:
                 sql += limit
-            print(sql)
 
             website_cursor.execute(sql)
 
@@ -102,7 +101,11 @@ def attractions():
             }
 
             return res
-    # except:
-    #     return {}
+    except Exception as e:
+        res = {
+                "error": True,
+                "message": str(e)
+            }
+        return res
 
 app.run(port=3000, debug=True)
