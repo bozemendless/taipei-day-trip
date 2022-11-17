@@ -11,7 +11,7 @@ app.secret_key = '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bc
 mydb = pooling.MySQLConnectionPool(
     host="localhost",
     user="root",
-    password="password",
+    password="19931101",
     database="website",
     pool_name="mypool",
     pool_size=5
@@ -101,10 +101,11 @@ def attractions():
             }
 
             return res
-    except Exception as e:
+    except:
+        error = "伺服器內部錯誤"
         res = {
                 "error": True,
-                "message": str(e)
+                "message": error
             }
         return res
 
