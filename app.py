@@ -47,12 +47,12 @@ def attractions():
             return redirect('/')
 
         # Connect to connection pool
-        connection_object = mydb.get_connection()
+        connectionObject = mydb.get_connection()
 
-        if connection_object.is_connected():
+        if connectionObject.is_connected():
 
             # Get data from database
-            website_cursor = connection_object.cursor()
+            websiteCursor = connectionObject.cursor()
 
             where = f" WHERE `category` = '{keyword}' or `name` LIKE '%{keyword}%'"
             limit = f" LIMIT {(page) * 12},12"
@@ -61,8 +61,8 @@ def attractions():
             if keyword != None:
                 sqlCount += where
 
-            website_cursor.execute(sqlCount)
-            numberOfRow = website_cursor.fetchone()[0]
+            websiteCursor.execute(sqlCount)
+            numberOfRow = websiteCursor.fetchone()[0]
 
             sql = "SELECT * FROM `attractions`"
             if keyword != None:
@@ -70,11 +70,11 @@ def attractions():
             if page != None:
                 sql += limit
 
-            website_cursor.execute(sql)
+            websiteCursor.execute(sql)
 
-            user_name_result = website_cursor.fetchall()
+            attractionsResult = websiteCursor.fetchall()
 
-            connection_object.close()
+            connectionObject.close()
             
             # Deal with the response from database then return the response
             nextPage = page + 1
@@ -82,7 +82,7 @@ def attractions():
                 nextPage = None
 
             data = []
-            for attraction in user_name_result:
+            for attraction in attractionsResult:
                 data.append({"id":attraction[0],
                         "name":attraction[1],
                         "category":attraction[2],
@@ -101,12 +101,107 @@ def attractions():
             }
 
             return res
+
+    # Error handler 500
     except:
         error = "伺服器內部錯誤"
         res = {
                 "error": True,
                 "message": error
             }
+        return res, 500
+
+@app.route("/api/attraction/<id>")
+def attractionId(id):
+    try:
+        # Connect to connection pool
+        connectionObject = mydb.get_connection()
+
+        if connectionObject.is_connected():
+
+            # Get data from database
+            websiteCursor = connectionObject.cursor()
+
+            sql = "SELECT * FROM `attractions` WHERE id = %s"
+            val = (id,)
+
+            websiteCursor.execute(sql, val)
+
+            attractionsResult = websiteCursor.fetchall()
+
+            connectionObject.close()
+
+            # Deal with the response from database then return the response
+            # Error handler 400
+            if attractionsResult == []:
+                error = "景點編號不正確"
+                res = {
+                    "error": True,
+                    "message": error
+                }
+                return res, 400
+
+            data = []
+            for attraction in attractionsResult:
+                data.append({"id":attraction[0],
+                        "name":attraction[1],
+                        "category":attraction[2],
+                        "description":attraction[3],
+                        "address":attraction[4],
+                        "transport": attraction[5],
+                        "mrt":attraction[6],
+                        "lat":float(attraction[7]),
+                        "lng": float(attraction[8]),
+                        "images": ["https://" + link for link in attraction[9].split("https://") if link != ""]
+                    })
+
+            return data
+
+    # Error handler 500
+    except:
+        error = "伺服器內部錯誤"
+        res = {
+            "error": True,
+            "message": error
+        }
+        return res, 500
+
+@app.route("/api/categories")
+def categories():
+
+    try:
+        # Connect to connection pool
+        connectionObject = mydb.get_connection()
+
+        if connectionObject.is_connected():
+
+            # Get data from database
+            websiteCursor = connectionObject.cursor()
+
+            sql = "SELECT DISTINCT category FROM attractions;"
+
+            websiteCursor.execute(sql)
+
+            categoriesResult = websiteCursor.fetchall()
+
+            connectionObject.close()
+
+            # Deal with the response from database then return the response
+            categories = [category[0] for category in categoriesResult]
+
+        res = {
+            "data":categories
+        }
+
         return res
+
+    # Error handler 500
+    except:
+        error = "伺服器內部錯誤"
+        res = {
+            "error": True,
+            "message": error
+        }
+        return res, 500
 
 app.run(port=3000, debug=True)
