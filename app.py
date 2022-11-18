@@ -3,6 +3,7 @@ from mysql.connector import pooling
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
+app.config["JSON_SORT_KEYS"]=False
 
 # Set the session key
 app.secret_key = '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf' # this is the example on documentation
@@ -127,7 +128,7 @@ def attractionId(id):
 
             websiteCursor.execute(sql, val)
 
-            attractionsResult = websiteCursor.fetchall()
+            attractionsResult = websiteCursor.fetchone()
 
             connectionObject.close()
 
@@ -141,21 +142,23 @@ def attractionId(id):
                 }
                 return res, 400
 
-            data = []
-            for attraction in attractionsResult:
-                data.append({"id":attraction[0],
-                        "name":attraction[1],
-                        "category":attraction[2],
-                        "description":attraction[3],
-                        "address":attraction[4],
-                        "transport": attraction[5],
-                        "mrt":attraction[6],
-                        "lat":float(attraction[7]),
-                        "lng": float(attraction[8]),
-                        "images": ["https://" + link for link in attraction[9].split("https://") if link != ""]
-                    })
+            data = {"id":attractionsResult[0],
+                        "name":attractionsResult[1],
+                        "category":attractionsResult[2],
+                        "description":attractionsResult[3],
+                        "address":attractionsResult[4],
+                        "transport": attractionsResult[5],
+                        "mrt":attractionsResult[6],
+                        "lat":float(attractionsResult[7]),
+                        "lng": float(attractionsResult[8]),
+                        "images": ["https://" + link for link in attractionsResult[9].split("https://") if link != ""]
+                    }
+            
+            res = {
+                "data":data
+            }
 
-            return data
+            return res
 
     # Error handler 500
     except:
@@ -204,5 +207,4 @@ def categories():
         }
         return res, 500
 
-
-app.run(host="0.0.0.0", port=3000, debug=True)
+app.run(host="0.0.0.0", port=3000)
