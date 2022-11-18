@@ -35,7 +35,7 @@ def thankyou():
 # APIs
 @app.route("/api/attractions")
 def attractions():
-    try:
+    # try:
         # # Check if session exists
         # if 'username' not in session:
         #     return redirect('/')
@@ -55,25 +55,29 @@ def attractions():
             # Get data from database
             websiteCursor = connectionObject.cursor()
 
-            where = f" WHERE `category` = '{keyword}' or `name` LIKE '%{keyword}%'"
-            limit = f" LIMIT {(page) * 12},12"
+            if keyword == None:
+                sqlCount = "SELECT COUNT(id) FROM `attractions`"
+                websiteCursor.execute(sqlCount)
+                numberOfRow = websiteCursor.fetchone()[0]
 
-            sqlCount = "SELECT COUNT(id) FROM `attractions`"
-            if keyword != None:
-                sqlCount += where
-
-            websiteCursor.execute(sqlCount)
-            numberOfRow = websiteCursor.fetchone()[0]
-
-            sql = "SELECT * FROM `attractions`"
-            if keyword != None:
-                sql += where
-            if page != None:
+                sql = "SELECT * FROM `attractions`"
+                limit = f" LIMIT {(page) * 12},12"
                 sql += limit
+                websiteCursor.execute(sql)
+                attractionsResult = websiteCursor.fetchall()
 
-            websiteCursor.execute(sql)
-
-            attractionsResult = websiteCursor.fetchall()
+            if keyword != None:
+                sqlCount = "SELECT COUNT(id) FROM `attractions` WHERE `category` = %s or `name` LIKE %s"
+                val = keyword, "%"+keyword+"%"
+                websiteCursor.execute(sqlCount, val)
+                numberOfRow = websiteCursor.fetchone()[0]
+                
+                sql = "SELECT * FROM `attractions` WHERE `category` = %s or `name` LIKE %s"
+                limit = f" LIMIT {(page) * 12},12"
+                sql += limit
+                print(sql, val)
+                websiteCursor.execute(sql, val)
+                attractionsResult = websiteCursor.fetchall()
 
             connectionObject.close()
             
@@ -104,7 +108,7 @@ def attractions():
             return res
 
     # Error handler 500
-    except:
+    # except:
         error = "伺服器內部錯誤"
         res = {
                 "error": True,
