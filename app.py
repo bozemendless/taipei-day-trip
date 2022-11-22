@@ -35,7 +35,7 @@ def thankyou():
 # APIs
 @app.route("/api/attractions")
 def attractions():
-    # try:
+    try:
         # # Check if session exists
         # if 'username' not in session:
         #     return redirect('/')
@@ -75,7 +75,6 @@ def attractions():
                 sql = "SELECT * FROM `attractions` WHERE `category` = %s or `name` LIKE %s"
                 limit = f" LIMIT {(page) * 12},12"
                 sql += limit
-                print(sql, val)
                 websiteCursor.execute(sql, val)
                 attractionsResult = websiteCursor.fetchall()
 
@@ -108,7 +107,7 @@ def attractions():
             return res
 
     # Error handler 500
-    # except:
+    except:
         error = "伺服器內部錯誤"
         res = {
                 "error": True,
