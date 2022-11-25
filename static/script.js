@@ -77,7 +77,7 @@ searchButton.addEventListener("click", () => {
     getAttractionsData();
     categoryList.style.visibility = "hidden";
     clear.style.visibility = "hidden";
-})
+});
 
 // Get data when loading index page
 getAttractionsData();
@@ -86,7 +86,7 @@ function callback(entry) {
     if (entry[0].isIntersecting & page !== null & isLoading === false) {
         getAttractionsData();
     }
-}
+};
 
 // IntersectionObserver API
 const options = {
@@ -119,10 +119,11 @@ fetch(categoryUrl).then(function (res) {
         categoryList.style.visibility = "visible";
         clear.style.visibility = "visible";
     });
+
     clear.addEventListener("click", () => {
         categoryList.style.visibility = "hidden";
         clear.style.visibility = "hidden";
-    })
+    });
 
     // Get user click value of category list
     categoryList.addEventListener("click", (targetElement) => {
@@ -133,6 +134,6 @@ fetch(categoryUrl).then(function (res) {
             clear.style.visibility = "hidden";
         }
     }) 
-})
+});
 
 
