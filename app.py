@@ -104,7 +104,9 @@ def attractions():
                 "data":data
             }
 
-            return res
+            response = make_response(res)
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response
 
     # Error handler 500
     except:

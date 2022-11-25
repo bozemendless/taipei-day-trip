@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>台北一日遊</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">台北一日遊</div>
+            <div class="items">
+                <li>預定行程</li>
+                <li>登入/註冊</li>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="banner">
+            <div class="img-wrapper">
+                <img src="/static/welcome image.png" alt="the beautiful view of the whole Taipei City">
+            </div>
+            <div class="slogan-div">
+                <div class="header">輕鬆享受台北一日悠閒</div>
+                <div class="body">探索每個角落，體驗城市的深度旅遊行程</div>
+            </div>
+            <div class="clear"></div>
+            <div class="search-div">
+                <input type="text" id="input" placeholder="輸入景點名稱查詢">
+                <div class="button">
+                    <img src="/static/search.png" alt="a search icon">
+                </div>
+                <div class="category-list"></div>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="attractions"></div>
+        </div>
+        <div class="target-element"></div>
+    </main>
+    <footer>
+        <div class="copyright">
+            <p>COPYRIGHT&copy;2021台北一日遊</p>            
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
