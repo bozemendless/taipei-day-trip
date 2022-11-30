@@ -445,6 +445,74 @@ footer {
     margin-bottom: 134px;
 }
 
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 360/350;
+    height: auto;
+}
+
+.carousel .pics {
+    display: flex;
+    width: 100%;
+    height: auto;
+    transition: transform 0.65s;
+}
+
+.pic-wrapper {
+    display: block;
+    width: 100%;
+}
+
+.pic-wrapper img {
+    width: 100vw;
+    aspect-ratio: 360/350;
+    min-height: auto;
+}
+
+.arrows img {
+    position: absolute;
+    top: 50%;
+}
+
+.arrows img:hover {
+    cursor: pointer;
+}
+
+.left {
+    left: 10px;
+}
+
+.right {
+    right: 10px;
+}
+
+.spots {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.spot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background: #fff;
+    margin: 0 6px;
+}
+
+.current-spot {
+    background-color: #000;
+}
+
+.spot:hover {
+    cursor: pointer;
+}
+
 .booking-trip {
     color: #666;
     padding: 15px 20px;
@@ -459,7 +527,7 @@ footer {
 }
 
 .attraction-side {
-    margin: 10px 10px 20px;
+    margin: 15px 10px 20px;
     color: #666;
 }
 
@@ -566,6 +634,20 @@ footer {
     line-height: 23.17px;
 }
 
+@media screen and (min-width: 600px) {
+    .carousel {
+        width: 100%;
+        aspect-ratio: unset;
+        height: 580px;
+    }
+
+    .pic-wrapper img {
+        width: 100vw;
+        aspect-ratio: 360/350;
+        min-height: 580px;
+    }
+}
+
 @media screen and (min-width: 1200px){
 
     header {
@@ -584,19 +666,37 @@ footer {
     }
 
     .carousel {
-        margin-right: 30px;
+        width: 540px;
+        height: 400px;
+        border-radius: 5px;
     }
 
-    .carousel img {
+    .carousel .pics {
+        width: 100%;
+        height: auto;
+    }
+
+    .pics img {
         width: 540px;
-        height: 406px;
-        border-radius: 5px;
+        min-height: 400px;
+    }
+
+    .text-container {
+        margin-left: 30px;
     }
 
     .booking-trip {
         width: 560px;
         height: 272px;
         margin: 0;
+    }
+
+    .attraction-title {
+        margin: 0;
+    }
+
+    .attraction-side {
+        margin: 15px 0 20px;
     }
 
     .content-hr {

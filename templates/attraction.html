@@ -15,7 +15,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo">台北一日遊</div>
+            <a href="/"><div class="logo">台北一日遊</div></a>
             <div class="items">
                 <li>預定行程</li>
                 <li>登入/註冊</li>
@@ -28,7 +28,21 @@
 
             <div class="flex-container">
                 <div class="carousel"> 
-                    <!-- <img src="#" alt=""> -->
+                    <div class="pics">
+                        <div class="pic-wrapper">
+                            <!-- <img src="#" alt=""> -->
+                        </div>
+                    </div>
+                    <div class="arrows">
+                        <img class="left" src="/static/left arrow.png" alt="">
+                        <img class="right" src="/static/right arrow.png" alt="">
+                    </div>
+
+                    <div class="spots">
+                        <!-- <div class="spot current-spot"></div>
+                        <div class="spot"></div>
+                        <div class="spot"></div> -->
+                    </div>
                 </div>
 
                 <div class="text-container">
@@ -46,7 +60,7 @@
                     </div>
 
                     <div class="date">
-                        <label class="body-bold">選擇日期：&nbsp;<input class="body-medium" type="date" id="date-input"/></label>
+                        <label class="body-bold">選擇日期：&nbsp;<input class="body-medium" type="date" id="date-input" min="2021-01-01" max="2030-12-31"/></label>
                     </div>
                     
                     <div class="time">
