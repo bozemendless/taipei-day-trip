@@ -16,6 +16,61 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
 }
 
+/* Font-Class */
+.h1-bold {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.h2-bold {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.h3-bold {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.h3-regular {
+    font-size: 24px;
+    font-weight: 400;
+
+}
+
+.button-bold {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.button-regular {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.content-bold {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.content-regular {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.body-bold {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.body-medium {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+/* ========== index.html ========== */
+
 /* header */
 header {
     width: 100%;
@@ -260,6 +315,12 @@ main {
 }
 
 /* footer */
+
+footer {
+    height: 104px;
+    width: 100%;
+}
+
 .copyright {
     display: flex;
     height: 104px;
@@ -273,12 +334,9 @@ main {
 
 .copyright p {
     color: #FFF;
-    font-size: 16px;
-    font-weight: bold;
-
 }
 /* media query: pad*/
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
 
     .attractions {
         display: grid;
@@ -314,7 +372,7 @@ main {
 }
 
 /* media query desktop */
-@media (min-width: 1200px) {
+@media screen and (min-width: 1200px) {
     nav {
         width: 1200px;
         margin: auto;
@@ -382,3 +440,173 @@ main {
     }
 }
 
+/* ========== attraction.html ========== */
+.attraction-page-main-container {
+    margin-bottom: 134px;
+}
+
+.booking-trip {
+    color: #666;
+    padding: 15px 20px;
+    background-color: #e8e8e8;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+.attraction-title {
+    margin: 20px 10px 5px;
+    color: #666;
+}
+
+.attraction-side {
+    margin: 10px 10px 20px;
+    color: #666;
+}
+
+.trip p {
+    margin-top: 15px;
+}
+
+.date {
+    margin: 24px 0;
+}
+
+.date input {
+    background-color: #fff;
+    width: 173px;
+    height: 25px;
+    border: 0;
+    padding: 5px 10px;
+    vertical-align: middle;
+}
+
+.time input[type="radio"] {
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    position: relative;
+    vertical-align: text-bottom;
+}
+
+.time input[type="radio"]::after {
+    content: "";
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.time input[type="radio"]:checked::after {
+    content: "";
+    background-color: #489;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.first-half-day-label {
+    margin-right: 18px;
+}
+
+.fee {
+    margin: 15px 0 25px;
+    position: relative;
+}
+
+.fee-2000, .fee-2500 {
+    visibility: hidden;
+    position: absolute;
+}
+
+.start-book-button {
+    background-color: #489;
+    width: 154px;
+    height: 36px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.start-book-button:hover {
+    cursor: pointer;
+}
+
+.start-book-button div {
+    color: #FFF;
+    text-align: center;
+    line-height: 36px;
+}
+
+.content-hr {
+    border: 0.5px solid #e8e8e8;
+    margin: 40px 10px 50px;
+}
+
+.attraction-text {
+    color: #666;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.attraction-text span {
+    line-height: 32px;
+}
+
+.description p {
+    line-height: 23.17px;
+}
+
+.address {
+    margin: 20px 0;
+}
+
+.transport p {
+    line-height: 23.17px;
+}
+
+@media screen and (min-width: 1200px){
+
+    header {
+        border: 1px solid #e8e8e8;
+    }
+
+    .attraction-page-main-container {
+        padding-top: 37px;
+    }
+
+    .flex-container {
+        display: flex;
+        justify-content: center;
+        width: 1200px;
+        margin: auto;
+    }
+
+    .carousel {
+        margin-right: 30px;
+    }
+
+    .carousel img {
+        width: 540px;
+        height: 406px;
+        border-radius: 5px;
+    }
+
+    .booking-trip {
+        width: 560px;
+        height: 272px;
+        margin: 0;
+    }
+
+    .content-hr {
+        width: 1199px;
+        margin: 40px auto 50px;
+    }
+
+    .attraction-text {
+        width: 1180px;
+        margin: auto;
+        padding: 0 10px;
+    }
+}
