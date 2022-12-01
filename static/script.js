@@ -23,27 +23,31 @@ function getAttractionsData() {
         page = nextPage;
         for (let i = 0; i < data.data.length; i++) {
             const attractions = document.querySelector(".attractions");
-            let attraction = document.createElement("div");
-            let img = document.createElement("img");
-            let mask = document.createElement("div");
-            let title = document.createElement("span");
-            let titleText = document.createTextNode(data.data[i]["name"]);
-            let text = document.createElement("div");
-            let mrt = document.createElement("span");
-            let mrtText = document.createTextNode(data.data[i]["mrt"]);
-            let category = document.createElement("span");
-            let categoryText = document.createTextNode(data.data[i]["category"]);
+            const attraction = document.createElement("div");
+            const attractionPage = document.createElement("a");
+            const img = document.createElement("img");
+            const mask = document.createElement("div");
+            const title = document.createElement("span");
+            const titleText = document.createTextNode(data.data[i]["name"]);
+            const text = document.createElement("div");
+            const mrt = document.createElement("span");
+            const mrtText = document.createTextNode(data.data[i]["mrt"]);
+            const category = document.createElement("span");
+            const categoryText = document.createTextNode(data.data[i]["category"]);
 
             attraction.className = "attraction";
 
             img.src = data.data[i]["images"][0];
-            img.alt = `${data.data[i]["name"]} 的景點照片`;
-            img.title = `${data.data[i]["name"]} 的景點照片`;
-            attraction.appendChild(img);
+            img.alt = `${data.data[i]["name"]} 的景點頁面`;
+            img.title = `${data.data[i]["name"]} 的景點頁面`;
+            attractionPage.href = `/attraction/${data.data[i]["id"]}`;
+            attractionPage.appendChild(img);
+            attraction.appendChild(attractionPage);//
 
             title.appendChild(titleText);
             title.className = "title";
             mask.className = "mask";
+            mask.title = `${data.data[i]["name"]}`;
             mask.appendChild(title);
             attraction.appendChild(mask);
 
@@ -77,7 +81,7 @@ searchButton.addEventListener("click", () => {
     getAttractionsData();
     categoryList.style.visibility = "hidden";
     clear.style.visibility = "hidden";
-})
+});
 
 // Get data when loading index page
 getAttractionsData();
@@ -86,7 +90,7 @@ function callback(entry) {
     if (entry[0].isIntersecting & page !== null & isLoading === false) {
         getAttractionsData();
     }
-}
+};
 
 // IntersectionObserver API
 const options = {
@@ -119,10 +123,11 @@ fetch(categoryUrl).then(function (res) {
         categoryList.style.visibility = "visible";
         clear.style.visibility = "visible";
     });
+
     clear.addEventListener("click", () => {
         categoryList.style.visibility = "hidden";
         clear.style.visibility = "hidden";
-    })
+    });
 
     // Get user click value of category list
     categoryList.addEventListener("click", (targetElement) => {
@@ -133,6 +138,6 @@ fetch(categoryUrl).then(function (res) {
             clear.style.visibility = "hidden";
         }
     }) 
-})
+});
 
 
