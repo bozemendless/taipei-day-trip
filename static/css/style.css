@@ -68,6 +68,11 @@ a:link, a:visited, a:hover, a:active {
     font-weight: 500;
 }
 
+.fail {
+    font-size:16px;
+    font-weight: 500;
+}
+
 
 /* ========== index.html ========== */
 
@@ -345,7 +350,7 @@ main {
     top: 17px;
 }
 
-.close-button:hover, .signin-button:hover, .signup-button:hover, .switch-to-signup, .switch-to-signin:hover, .signin-signup-button {
+.close-button:hover, .signin-button:hover, .signup-button:hover, .switch-to-signup, .switch-to-signin:hover, .signin-signup-button, .logout {
     cursor: pointer;
 }
 
@@ -384,6 +389,31 @@ main {
 
 .sign-in {
     visibility: hidden;
+}
+
+.signin-message30 {
+    height: 305px;
+}
+
+.signin-message, .signup-message {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.signin-message span, .signup-message span {
+    font-size: 16px;
+}
+
+.fail {
+    color: red;
+}
+
+.success {
+    color: darkblue;
+}
+
+.signup-message30 {
+    height: 362px;
 }
 
 .lightbox-mask {

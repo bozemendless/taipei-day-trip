@@ -220,9 +220,9 @@ def signup():
     try:
         assert "application/json" in request.headers["Accept"]
         # Check if column contains blank values
-        name = request.form["name"]
-        email = request.form["email"]
-        password = request.form["password"]
+        name = request.json["name"]
+        email = request.json["email"]
+        password = request.json["password"]
         if name == "" or email == "" or password == "":
             error = "欄位格式錯誤"
             res = {
@@ -232,7 +232,6 @@ def signup():
             return res, 400
         # Connect to connection pool
         connectionObject = mydb.get_connection()
-
         if connectionObject.is_connected():
             websiteCursor = connectionObject.cursor()
             # Check if email exists
@@ -240,7 +239,7 @@ def signup():
             val = (email,)
             websiteCursor.execute(sql, val)
             emailResult = websiteCursor.fetchone()
-            # if exists
+            # If exists
             if emailResult != None:
                 connectionObject.close()
                 error = "重複的 email "
@@ -249,14 +248,12 @@ def signup():
                     "message": error
                 }
                 return res, 400
-            # not exist, signup new account
-            sql = "INSERT INTO `user` (name, email, password) VALUES (%s, %s, %s)"
+            # Not exist >> sign up a new account to database
+            sql = "INSERT INTO `user` (name, email, password) VALUES (%s, %s, SHA2(%s, 224))"
             val = (name, email, password)
             websiteCursor.execute(sql, val)
             connectionObject.commit()
-
             connectionObject.close()
-
             res = {
                 "ok": True
             }
@@ -313,8 +310,8 @@ def userAuth():
     if request.method == "PUT":
         try:
             assert "application/json" in request.headers["Accept"]
-            email = request.form["email"]
-            password = request.form["password"]
+            email = request.json["email"]
+            password = request.json["password"]
             # Check if column contains blank values
             if email == "" or password == "":
                 error = "帳號、密碼不得空白"
