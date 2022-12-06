@@ -1,12 +1,14 @@
 from flask import *
 from mysql.connector import pooling
+import jwt
+import datetime
+from datetime import timedelta
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config["JSON_SORT_KEYS"]=False
-
-# Set the session key
-app.secret_key = '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf' # this is the example on documentation
+app.config["SECRET_KEY"]="192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf"
+jwt_secret = "446EAFA08BC9FC19DFBF92E1ACD11B3355CF9626FA6EAA03646FD2EBD588E9F4"
 
 # Connect to database and create connection pool
 mydb = pooling.MySQLConnectionPool(
@@ -104,9 +106,10 @@ def attractions():
                 "data":data
             }
 
-            response = make_response(res)
-            response.headers.add("Access-Control-Allow-Origin", "*")
-            return response
+            # response = make_response(res)
+            # response.headers.add("Access-Control-Allow-Origin", "*")
+            # return response
+            return res
 
     # Error handler 500
     except:
@@ -128,7 +131,7 @@ def attractionId(id):
             # Get data from database
             websiteCursor = connectionObject.cursor()
 
-            sql = "SELECT * FROM `attractions` WHERE id = %s"
+            sql = "SELECT * FROM `attractions` WHERE `id` = %s"
             val = (id,)
 
             websiteCursor.execute(sql, val)
@@ -186,7 +189,7 @@ def categories():
             # Get data from database
             websiteCursor = connectionObject.cursor()
 
-            sql = "SELECT DISTINCT category FROM attractions;"
+            sql = "SELECT DISTINCT `category` FROM `attractions`;"
 
             websiteCursor.execute(sql)
 
@@ -204,6 +207,171 @@ def categories():
         return res
 
     # Error handler 500
+    except:
+        error = "伺服器內部錯誤"
+        res = {
+            "error": True,
+            "message": error
+        }
+        return res, 500
+
+@app.route("/api/user", methods=["POST"])
+def signup():
+    try:
+        assert "application/json" in request.headers["Accept"]
+        # Check if column contains blank values
+        name = request.form["name"]
+        email = request.form["email"]
+        password = request.form["password"]
+        if name == "" or email == "" or password == "":
+            error = "欄位格式錯誤"
+            res = {
+                "error": True,
+                "message": error
+            }
+            return res, 400
+        # Connect to connection pool
+        connectionObject = mydb.get_connection()
+
+        if connectionObject.is_connected():
+            websiteCursor = connectionObject.cursor()
+            # Check if email exists
+            sql = "SELECT `email` FROM `user` WHERE `email` = %s;"
+            val = (email,)
+            websiteCursor.execute(sql, val)
+            emailResult = websiteCursor.fetchone()
+            # if exists
+            if emailResult != None:
+                connectionObject.close()
+                error = "重複的 email "
+                res = {
+                    "error": True,
+                    "message": error
+                }
+                return res, 400
+            # not exist, signup new account
+            sql = "INSERT INTO `user` (name, email, password) VALUES (%s, %s, %s)"
+            val = (name, email, password)
+            websiteCursor.execute(sql, val)
+            connectionObject.commit()
+
+            connectionObject.close()
+
+            res = {
+                "ok": True
+            }
+            return res
+    except:
+        error = "伺服器內部錯誤"
+        res = {
+            "error": True,
+            "message": error
+        }
+        return res, 500
+
+@app.route("/api/user/auth", methods=["GET", "PUT", "DELETE"])
+def userAuth():
+    # GET method # Get account information
+    if request.method == "GET":
+        try:
+            assert "application/json" in request.headers["Accept"]
+            # Check if logging status is valid
+            if "token" in session:
+                # Token valid
+                try:
+                    token = session["token"]
+                    decodeToken = jwt.decode(token, jwt_secret, algorithms="HS256")
+                    res = {
+                        "data": {
+                            "id": decodeToken["id"],
+                            "name": session["name"],
+                            "email": session["email"]
+                        }
+                    }
+                    return res
+                # Token invalid
+                except:
+                    error = "無效的憑證"
+                    res = {
+                        "error": True,
+                        "message": error
+                    }
+                    return res
+            # Not in logging status
+            res = {
+                "data": None
+            }
+            return res
+        except:
+            error = "伺服器內部錯誤"
+            res = {
+                "error": True,
+                "message": error
+            }
+            return res, 500
+    # PUT method # Log in
+    if request.method == "PUT":
+        try:
+            assert "application/json" in request.headers["Accept"]
+            email = request.form["email"]
+            password = request.form["password"]
+            # Check if column contains blank values
+            if email == "" or password == "":
+                error = "帳號、密碼不得空白"
+                res = {
+                    "error": True,
+                    "message": error
+                }
+                return res, 400
+            # Check if the logging info corrects
+            connectionObject = mydb.get_connection()
+            if connectionObject.is_connected():
+                websiteCursor = connectionObject.cursor()
+                sql = "SELECT `id`, `name` FROM `user` WHERE `email` = %s and `password` = SHA2(%s, 224)"
+                val = (email, password)
+                websiteCursor.execute(sql, val)
+                loginResult = websiteCursor.fetchone() # (id, name) or None
+                connectionObject.close()
+                # Not correct
+                if loginResult == None:
+                    error = "帳號或密碼錯誤"
+                    res = {
+                        "error": True,
+                        "message": error
+                    }
+                    return res, 400
+                # Info corrects >> Make token by JWT-ing user's id
+                payload = {
+                    "id": loginResult[0],
+                    "exp": datetime.datetime.utcnow() + timedelta(days=7)
+                }
+                encodedId = jwt.encode(payload, jwt_secret)
+                # Set sessions
+                session["token"] = encodedId
+                session["name"] = loginResult[1]
+                session["email"] = email
+                res = {
+                    "ok": True
+                }
+                return res
+        except:
+            error = "伺服器內部錯誤"
+            res = {
+                "error": True,
+                "message": error
+            }
+            return res, 500
+    # DELETE method # Log out
+    try:
+        assert "application/json" in request.headers["Accept"]
+        if request.method == "DELETE":
+            # Clear sessions
+            for key in list(session.keys()):
+                session.pop(key)
+        res = {
+            "ok": True
+        }
+        return res
     except:
         error = "伺服器內部錯誤"
         res = {

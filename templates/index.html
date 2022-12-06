@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -16,14 +16,14 @@
             <a href="/"><div class="logo">台北一日遊</div></a>
             <div class="items">
                 <li>預定行程</li>
-                <li>登入/註冊</li>
+                <li class="signin-signup-button">登入/註冊</li>
             </div>
         </nav>
     </header>
     <main>
         <div class="banner">
             <div class="img-wrapper">
-                <img src="/static/welcome image.png" alt="the beautiful view of the whole Taipei City">
+                <img src="/static/img/welcome image.png" alt="the beautiful view of the whole Taipei City">
             </div>
             <div class="content-wrapper">
                 <div class="slogan-div">
@@ -34,7 +34,7 @@
                 <div class="search-div">
                     <input type="text" id="input" placeholder="輸入景點名稱查詢">
                     <div class="button">
-                        <img src="/static/search.png" alt="a search icon">
+                        <img src="/static/img/search.png" alt="a search icon">
                     </div>
                     <div class="category-list"></div>
                 </div>
@@ -43,6 +43,46 @@
         </div>
         <div class="main-container">
             <div class="attractions"></div>
+            <div class="sign-in">
+                <div class="decorator-bar"></div>
+                <div class="close-button">
+                    <img src="/static/img/close.png" alt="">
+                </div>
+                <div class="signin-title">
+                    <span class="h3-bold">登入會員帳號</span>
+                </div>
+                <div class="signin-info">
+                    <input type="email" class="body-medium" id="signin-email" placeholder="輸入電子信箱" required>
+                    <input type="password" class="body-medium" id="signin-password" placeholder="輸入密碼" required>
+                </div>
+                <div class="signin-button">
+                    <div class="button-regular">登入帳戶</div>
+                </div>
+                <div class="signin-signup">
+                    <span class="switch-to-signup body-medium">還沒有帳戶？點此註冊</span>
+                </div>
+            </div>
+            <div class="sign-up">
+                <div class="decorator-bar"></div>
+                <div class="close-button">
+                    <img src="/static/img/close.png" alt="">
+                </div>
+                <div class="signup-title">
+                    <span class="h3-bold">註冊會員帳號</span>
+                </div>
+                <div class="signup-info">
+                    <input type="text" class="body-medium" id="signup-name" placeholder="輸入姓名" required>
+                    <input type="email" class="body-medium" id="signup-email" placeholder="輸入電子郵件" required>
+                    <input type="password" class="body-medium" id="signup-password" placeholder="輸入密碼" required>
+                </div>
+                <div class="signup-button">
+                    <div class="button-regular">註冊新帳戶</div>
+                </div>
+                <div class="signin-signup">
+                    <span class="switch-to-signin body-medium">已經有帳戶了？點此登入</span>
+                </div>
+            </div>
+            <div class="lightbox-mask"></div>
         </div>
         <div class="target-element"></div>
     </main>
@@ -51,6 +91,6 @@
             <p class="body-bold">COPYRIGHT&nbsp;&copy;&nbsp;2021&nbsp;台北一日遊</p>            
         </div>
     </footer>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

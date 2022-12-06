@@ -64,8 +64,10 @@ function getAttractionsData() {
 
             attractions.appendChild(attraction);
         }
-        if (data.data === []) {
+        if (data.data.length === 0) {
+            const attractions = document.querySelector(".attractions");
             attractions.innerText = "查無資料";
+            attractions.style.fontSize = "20px";
         }
         isLoading = false;
     })
@@ -140,4 +142,63 @@ fetch(categoryUrl).then(function (res) {
     }) 
 });
 
+const signinSignupButton = document.querySelector(".signin-signup-button");
+const signinDiv = document.querySelector(".sign-in");
+const signupDiv = document.querySelector(".sign-up");
+const lightBoxMask = document.querySelector(".lightbox-mask");
+const closeButton = document.querySelectorAll(".close-button");
+const switchToSignup = document.querySelector(".switch-to-signup");
+const switchToSignin = document.querySelector(".switch-to-signin");
+const signinButton = document.querySelector(".signin-button");
+const signupButton = document.querySelector(".signup-button");
+const signinEmail = document.querySelector("#signin-email");
+const signinPassword = document.querySelector("#signin-password");
+const signupName = document.querySelector("#signup-name");
+const signupEmail = document.querySelector("#signup-email");
+const signupPassword = document.querySelector("#signup-password");
 
+signinSignupButton.addEventListener("click", () => {
+    signinDiv.style.visibility = "visible";
+    lightBoxMask.style.visibility = "visible";
+})
+
+for (let i = 0; i < closeButton.length; i ++) {
+    closeButton[i].addEventListener("click", () => {
+        signinDiv.style.visibility = "hidden";
+        signupDiv.style.visibility = "hidden";
+        lightBoxMask.style.visibility = "hidden";
+    })
+}
+
+switchToSignup.addEventListener("click", () => {
+    signinDiv.style.visibility = "hidden";
+    signupDiv.style.visibility = "visible";
+    signinEmail.value = "";
+    signinPassword.value = "";
+})
+
+switchToSignin.addEventListener("click", () => {
+    signinDiv.style.visibility = "visible";
+    signupDiv.style.visibility = "hidden";
+    signupName.value = "";
+    signupEmail.value = "";
+    signupPassword.value = "";
+})
+
+lightBoxMask.addEventListener("click", () => {
+    signinDiv.style.visibility = "hidden";
+    signupDiv.style.visibility = "hidden";
+    lightBoxMask.style.visibility = "hidden";
+    signinEmail.value = "";
+    signinPassword.value = "";
+    signupName.value = "";
+    signupEmail.value = "";
+    signupPassword.value = "";
+})
+
+
+
+// signinButton.addEventListener("click", () => {
+
+// })
+// signupButton.addEventListener
