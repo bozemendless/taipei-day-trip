@@ -68,6 +68,11 @@ a:link, a:visited, a:hover, a:active {
     font-weight: 500;
 }
 
+.fail {
+    font-size:16px;
+    font-weight: 500;
+}
+
 
 /* ========== index.html ========== */
 
@@ -312,6 +317,115 @@ main {
 
 .text .category {
     margin-left: auto;
+}
+
+.sign-in, .sign-up {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #FFF;
+    width: 340px;
+    height: 275px;
+    z-index: 3;
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+.sign-up {
+    height: 332px;
+}
+
+.decorator-bar {
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius: 5px 5px 0 0;
+}
+
+.close-button {
+    position: absolute;
+    right: 17px;
+    top: 17px;
+}
+
+.close-button:hover, .signin-button:hover, .signup-button:hover, .switch-to-signup, .switch-to-signin:hover, .signin-signup-button, .logout {
+    cursor: pointer;
+}
+
+.signin-title, .signup-title {
+    color: #666;
+    text-align: center;
+    margin: 10px 0 15px;
+    height: 32px;
+}
+
+.signin-info input, .signup-info input {
+    width: 278px;
+    height: 15px;
+    margin: 0 15px 10px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.signin-button, .signup-button {
+    margin: 0 15px;
+    width: 280px;
+    height: 27px;
+    padding: 10px 15px;
+    text-align: center;
+    background-color: #489;
+    border-radius: 5px;
+    color: #FFF;
+}
+
+.signin-signup {
+    text-align: center;
+    color: #666;
+    margin-top: 10px;
+}
+
+.sign-in {
+    visibility: hidden;
+}
+
+.signin-message30 {
+    height: 305px;
+}
+
+.signin-message, .signup-message {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.signin-message span, .signup-message span {
+    font-size: 16px;
+}
+
+.fail {
+    color: red;
+}
+
+.success {
+    color: darkblue;
+}
+
+.signup-message30 {
+    height: 362px;
+}
+
+.lightbox-mask {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0.25;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 2;
+    visibility: hidden;
 }
 
 /* footer */

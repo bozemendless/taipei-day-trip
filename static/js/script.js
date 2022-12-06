@@ -64,8 +64,10 @@ function getAttractionsData() {
 
             attractions.appendChild(attraction);
         }
-        if (data.data === []) {
+        if (data.data.length === 0) {
+            const attractions = document.querySelector(".attractions");
             attractions.innerText = "查無資料";
+            attractions.style.fontSize = "20px";
         }
         isLoading = false;
     })
@@ -139,5 +141,3 @@ fetch(categoryUrl).then(function (res) {
         }
     }) 
 });
-
-
