@@ -1,7 +1,5 @@
 from flask import Blueprint, request, redirect
-from model.model import create_db
-
-mydb = create_db()
+from model.model import mydb
 
 attraction = Blueprint("attraction", __name__)
 

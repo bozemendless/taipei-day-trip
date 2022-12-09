@@ -2,9 +2,7 @@ from flask import request, session, Blueprint
 import jwt
 import datetime
 from datetime import timedelta
-from model.model import create_db
-
-mydb = create_db
+from model.model import mydb
 
 jwt_secret = "446EAFA08BC9FC19DFBF92E1ACD11B3355CF9626FA6EAA03646FD2EBD588E9F4"
 
