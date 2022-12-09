@@ -1,4 +1,4 @@
-from flask import *
+from flask import Blueprint, request, redirect
 from model.model import create_db
 
 mydb = create_db()
