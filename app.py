@@ -35,6 +35,7 @@ def thankyou():
 	return render_template("thankyou.html")
 
 # APIs
+
 @app.route("/api/attractions")
 def attractions():
     try:
