@@ -1,9 +1,9 @@
 from flask import Blueprint, request, redirect
 from model.model import mydb
 
-attraction = Blueprint("attraction", __name__)
+attraction_bp = Blueprint("attraction", __name__)
 
-@attraction.route("/api/attractions")
+@attraction_bp.route("/api/attractions")
 def attractions():
     try:
         # Receive data through get method
@@ -14,45 +14,45 @@ def attractions():
             return redirect('/')
 
         # Connect to connection pool
-        connectionObject = mydb.get_connection()
+        connection_object = mydb.get_connection()
 
-        if connectionObject.is_connected():
+        if connection_object.is_connected():
 
             # Get data from database
-            websiteCursor = connectionObject.cursor()
+            website_cursor = connection_object.cursor()
 
             if keyword == None:
-                sqlCount = "SELECT COUNT(id) FROM `attractions`"
-                websiteCursor.execute(sqlCount)
-                numberOfRow = websiteCursor.fetchone()[0]
+                sql_count = "SELECT COUNT(id) FROM `attractions`"
+                website_cursor.execute(sql_count)
+                number_of_row = website_cursor.fetchone()[0]
 
                 sql = "SELECT * FROM `attractions`"
                 limit = f" LIMIT {(page) * 12},12"
                 sql += limit
-                websiteCursor.execute(sql)
-                attractionsResult = websiteCursor.fetchall()
+                website_cursor.execute(sql)
+                attractions_result = website_cursor.fetchall()
 
             if keyword != None:
-                sqlCount = "SELECT COUNT(id) FROM `attractions` WHERE `category` = %s or `name` LIKE %s"
+                sql_count = "SELECT COUNT(id) FROM `attractions` WHERE `category` = %s or `name` LIKE %s"
                 val = keyword, "%"+keyword+"%"
-                websiteCursor.execute(sqlCount, val)
-                numberOfRow = websiteCursor.fetchone()[0]
+                website_cursor.execute(sql_count, val)
+                number_of_row = website_cursor.fetchone()[0]
 
                 sql = "SELECT * FROM `attractions` WHERE `category` = %s or `name` LIKE %s"
                 limit = f" LIMIT {(page) * 12},12"
                 sql += limit
-                websiteCursor.execute(sql, val)
-                attractionsResult = websiteCursor.fetchall()
+                website_cursor.execute(sql, val)
+                attractions_result = website_cursor.fetchall()
 
-            connectionObject.close()
+            connection_object.close()
 
             # Deal with the response from database then return the response
-            nextPage = page + 1
-            if numberOfRow - (page + 1) * 12 <= 0:
-                nextPage = None
+            next_page = page + 1
+            if number_of_row - (page + 1) * 12 <= 0:
+                next_page = None
 
             data = []
-            for attraction in attractionsResult:
+            for attraction in attractions_result:
                 data.append({"id": attraction[0],
                             "name": attraction[1],
                             "category": attraction[2],
@@ -66,7 +66,7 @@ def attractions():
                             })
 
             res = {
-                "nextPage": nextPage,
+                "nextPage": next_page,
                 "data": data
             }
 
@@ -82,29 +82,29 @@ def attractions():
         return res, 500
 
 
-@attraction.route("/api/attraction/<id>")
+@attraction_bp.route("/api/attraction/<id>")
 def attractionId(id):
     try:
         # Connect to connection pool
-        connectionObject = mydb.get_connection()
+        connection_object = mydb.get_connection()
 
-        if connectionObject.is_connected():
+        if connection_object.is_connected():
 
             # Get data from database
-            websiteCursor = connectionObject.cursor()
+            website_cursor = connection_object.cursor()
 
             sql = "SELECT * FROM `attractions` WHERE `id` = %s"
             val = (id,)
 
-            websiteCursor.execute(sql, val)
+            website_cursor.execute(sql, val)
 
-            attractionsResult = websiteCursor.fetchone()
+            attractions_result = website_cursor.fetchone()
 
-            connectionObject.close()
+            connection_object.close()
 
             # Deal with the response from database then return the response
             # Error handler 400
-            if attractionsResult == []:
+            if attractions_result == []:
                 error = "景點編號不正確"
                 res = {
                     "error": True,
@@ -112,16 +112,16 @@ def attractionId(id):
                 }
                 return res, 400
 
-            data = {"id": attractionsResult[0],
-                    "name": attractionsResult[1],
-                    "category": attractionsResult[2],
-                    "description": attractionsResult[3],
-                    "address": attractionsResult[4],
-                    "transport": attractionsResult[5],
-                    "mrt": attractionsResult[6],
-                    "lat": float(attractionsResult[7]),
-                    "lng": float(attractionsResult[8]),
-                    "images": ["https://" + link for link in attractionsResult[9].split("https://") if link != ""]
+            data = {"id": attractions_result[0],
+                    "name": attractions_result[1],
+                    "category": attractions_result[2],
+                    "description": attractions_result[3],
+                    "address": attractions_result[4],
+                    "transport": attractions_result[5],
+                    "mrt": attractions_result[6],
+                    "lat": float(attractions_result[7]),
+                    "lng": float(attractions_result[8]),
+                    "images": ["https://" + link for link in attractions_result[9].split("https://") if link != ""]
                     }
 
             res = {
@@ -140,28 +140,28 @@ def attractionId(id):
         return res, 500
 
 
-@attraction.route("/api/categories")
+@attraction_bp.route("/api/categories")
 def categories():
 
     try:
         # Connect to connection pool
-        connectionObject = mydb.get_connection()
+        connection_object = mydb.get_connection()
 
-        if connectionObject.is_connected():
+        if connection_object.is_connected():
 
             # Get data from database
-            websiteCursor = connectionObject.cursor()
+            website_cursor = connection_object.cursor()
 
             sql = "SELECT DISTINCT `category` FROM `attractions`;"
 
-            websiteCursor.execute(sql)
+            website_cursor.execute(sql)
 
-            categoriesResult = websiteCursor.fetchall()
+            categories_result = website_cursor.fetchall()
 
-            connectionObject.close()
+            connection_object.close()
 
             # Deal with the response from database then return the response
-            categories = [category[0] for category in categoriesResult]
+            categories = [category[0] for category in categories_result]
 
         res = {
             "data": categories
