@@ -117,7 +117,7 @@ nav {
 /* main */
 main {
     margin-top: 54px;
-    min-height: 100%;
+    /* min-height: 100%; */
 }
 
 .banner {
@@ -352,7 +352,7 @@ main {
     top: 17px;
 }
 
-.close-button:hover, .signin-button:hover, .signup-button:hover, .switch-to-signup, .switch-to-signin:hover, .signin-signup-button, .logout {
+.close-button:hover, .signin-button:hover, .signup-button:hover, .switch-to-signup, .switch-to-signin:hover, .signin-signup-button, .logout, .direct-to-booking-button {
     cursor: pointer;
 }
 
@@ -441,8 +441,8 @@ footer {
     display: flex;
     height: 104px;
     width: 100%;
-    position: relative;
-    bottom: 0;
+    /* position: relative;
+    bottom: 0; */
     background-color: #757575;
     justify-content: center;
     align-items: center;
@@ -852,6 +852,7 @@ footer {
 }
 
 .booking-img img {
+    aspect-ratio: 340/200;
     height: auto;
     width: 100%;
     max-height: 480px;
@@ -874,6 +875,15 @@ footer {
 .delete-button {
     text-align: right;
     margin: 5px 0 30px;
+}
+
+.delete-button img:hover {
+    cursor: pointer;
+}
+
+.no-booking {
+    margin-top: 35px;
+    margin-bottom: 40px;
 }
 
 .attraction-booking-main-container hr {
@@ -926,6 +936,10 @@ footer {
 }
 
 @media screen and (min-width: 600px) {
+    
+    .booking-img img {
+        aspect-ratio: unset;
+    }
 
     .attraction-booking-main-container {
         width: 80%;
@@ -955,9 +969,9 @@ footer {
         margin: 0;
     }
 
-    .booking-img {
-        width: 260px;
-        height: 200px;
+    .booking-img img {
+        width:260px;
+        aspect-ratio: unset;
     }
 
     .booking-title {
@@ -989,8 +1003,8 @@ footer {
         height: 30px;
     }
 
-    .delete-button img:hover {
-        cursor: pointer;
+    .no-booking {
+        margin-left: 120px;
     }
 
     .user-contact {

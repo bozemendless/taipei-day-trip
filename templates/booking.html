@@ -19,7 +19,7 @@
                 <div class="logo">台北一日遊</div>
             </a>
             <div class="items">
-                <a href="/booking"><li>預定行程</li></a>
+                <li class="direct-to-booking-button">預定行程</li>
                 <li class="signin-signup-button" style="display: none;">登入/註冊</li>
                 <li class="logout" style="display: none;">登出系統</li>
             </div>
@@ -75,40 +75,41 @@
             <div class="lightbox-mask"></div>
             <div class="attraction-booking-main-container">
                 <p class="booking-welcome button-bold">
-                    您好，USERNAME，待預定的行程如下：
+                    您好，<span class="username button-bold"></span>，待預定的行程如下：
                 </p>
-                <div class="booking-flex-container">
+                <div class="booking-flex-container" style="display: none;">
                     <div class="booking-img">
-                        <img src="https://picsum.photos/300/256" alt="">
+                        <!-- <img src="https://picsum.photos/300/256" alt=""> -->
                     </div>
                     <div class="booking-attraction-information">
                         <div class="booking-title">
                             <span class="body-bold">台北一日遊：</span>
-                            <span class="body-bold">平安鐘</span>
+                            <!-- <span class="body-bold">平安鐘</span> -->
                         </div>
-                        <div class="booking-data info">
+                        <div class="booking-date info">
                             <span class="body-bold">日期：</span>
-                            <span class="body-medium">2021-04-23</span>
+                            <!-- <span class="body-medium">2021-04-23</span> -->
                         </div>
                         <div class="booking-time info">
                             <span class="body-bold">時間：</span>
-                            <span class="body-medium">早上 9 點到下午 4 點</span>
+                            <!-- <span class="body-medium">早上 9 點到下午 4 點</span> -->
                         </div>
                         <div class="booking-fee info">
                             <span class="body-bold">費用：</span>
-                            <span class="body-medium">新台幣 2000 元</span>
+                            <span class="body-medium">新台幣 <span class="booking-fee-inner body-medium"></span> 元</span>
                         </div>
                         <div class="booking-place info">
                             <span class="body-bold">地點：</span>
-                            <span class="body-medium">臺北市 大安區忠孝東路4段</span>
+                            <!-- <span class="body-medium">臺北市 大安區忠孝東路4段</span> -->
                         </div>
                     </div>
                     <div class="delete-button">
                         <img src="/static/img/delete.png" alt="">
                     </div>
                 </div>
-                <hr />
-                <div class="user-contact">
+                <p class="no-booking body-medium" style="display: none;">目前沒有任何待預訂的行程</p>
+                <hr style="display: none;" />
+                <div class="user-contact" style="display: none;">
                     <p class="button-bold user-contact-header">您的聯絡資訊</p>
                     <div class="contact-name">
                         <label class="body-medium">聯絡姓名：
@@ -127,8 +128,8 @@
                     </div>
                     <p class="content-bold contact-warning">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</p>
                 </div> 
-                <hr />
-                <div class="credit-information">
+                <hr style="display: none;" />
+                <div class="credit-information" style="display: none;">
                     <p class="button-bold">信用卡付款資訊</p>
                     <div class="credit-card-number">
                         <label class="body-medium">卡片號碼：
@@ -146,13 +147,13 @@
                         </label>
                     </div>
                 </div>
-                <hr />
-                <div class="booking-price">
+                <hr style="display: none;" />
+                <div class="booking-price" style="display: none;">
                     <span class="body-bold">總價：</span>
                     <span class="body-bold">新台幣 2000 元</span>
                 </div>
                 <a href="#">
-                    <div class="booking-button">
+                    <div class="booking-button" style="display: none;">
                         <div class="button-regular confirm-booking">確認訂購並付款</div>
                     </div>
                 </a>

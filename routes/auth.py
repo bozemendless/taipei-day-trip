@@ -86,7 +86,7 @@ def userAuth():
                         "error": True,
                         "message": error
                     }
-                    return res
+                    return res, 401
             # Not in logging status
             res = {
                 "data": None

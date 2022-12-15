@@ -17,7 +17,7 @@
         <nav>
             <a href="/"><div class="logo">台北一日遊</div></a>
             <div class="items">
-                <a href="/booking"><li>預定行程</li></a>
+                <li class="direct-to-booking-button">預定行程</li>
                 <li class="signin-signup-button" style="display: none;">登入/註冊</li>
                 <li class="logout" style="display: none;">登出系統</li>
             </div>
@@ -124,8 +124,8 @@
                         <span class="fee-2500 body-medium">新台幣&nbsp;2500&nbsp;元</span>
                     </div>
 
-                    <a href="/booking"><div class="start-book-button">
-                        <div class="button-regular">開始預約行程</div></a>
+                    <div class="start-book-button">
+                        <div class="button-regular">開始預約行程</div>
                     </div>
                 </div>
 
@@ -159,6 +159,7 @@
     </footer>
     <script src="{{ url_for('static', filename='js/attraction.js') }}"></script>
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
 </body>
 
 </html>

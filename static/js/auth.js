@@ -17,6 +17,7 @@ const signinMessage = document.querySelector(".signin-message");
 const signupMessage = document.querySelector(".signup-message");
 const signinMessageSpan = document.querySelector(".signin-message span");
 const signupMessageSpan = document.querySelector(".signup-message span");
+const directToBookingButton = document.querySelector(".direct-to-booking-button");
 
 signinSignupButton.addEventListener("click", () => {
     signinDiv.style.visibility = "visible";
@@ -69,20 +70,40 @@ lightBoxMask.addEventListener("click", () => {
 
 // Check if logging status is valid
 const getStatusUrl = "/api/user/auth";
-fetch(getStatusUrl, {
-    headers: {
-        "Accept": "application/json"
-    }
-})
-
+fetch(getStatusUrl)
 .then(res => {return res.json();})
 .then(data => {
-    if (data.data == null) {
+    if (data.data === null) {
         signinSignupButton.style.display = "list-item";
+        directToBookingButton.addEventListener("click", () => {
+            signinSignupButton.click();
+        })
     }
-    if (data.data != null) {
+    if (data.data !== null) {
         signinSignupButton.style.display = "none";
         logoutButton.style.display = "list-item";
+        directToBookingButton.addEventListener("click", () => {
+            location.href = "/booking"
+        })
+    }
+    if (data.data !== null & location.pathname === "/booking") {
+        const usernameSpan = document.querySelector(".username");
+        const usernameSpanText = document.createTextNode(data.data.name);
+        usernameSpan.appendChild(usernameSpanText);
+    }
+    if (data.data === null & location.pathname === "/booking") {
+        document.location.href = "/";
+    }
+    const startBookButton = document.querySelector(".start-book-button");
+    if (data.data !== null & location.pathname.startsWith("/attraction/")) {
+        startBookButton.addEventListener("click", () => {
+            createBooking();
+        })
+    }
+    if (data.data === null & location.pathname.startsWith("/attraction")) {
+        startBookButton.addEventListener("click", () => {
+            signinSignupButton.click();
+        })
     }
 })
 
@@ -95,7 +116,6 @@ signinButton.addEventListener("click", () => {
     const options = {
         method: "PUT",
         headers: {
-        "Accept": "application/json",
         "Content-Type":'application/json;charset=utf-8'
         },
         body: JSON.stringify(user)
@@ -124,7 +144,6 @@ signupButton.addEventListener("click", () => {
     const options = {
         method: "POST",
         headers: {
-        "Accept": "application/json",
         "Content-Type":'application/json;charset=utf-8'
         },
         body: JSON.stringify(user)
@@ -149,9 +168,6 @@ logoutButton.addEventListener("click", () => {
     const logoutUrl = "/api/user/auth";
     const options = {
         method: "DELETE",
-        headers: {
-            "Accept": "application/json"
-        }
     }
     fetch(logoutUrl, options)
     .then((res) => {return res.json();})
