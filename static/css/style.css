@@ -83,6 +83,7 @@ header {
     position: fixed;
     top: 0;
     z-index: 1;
+    border: 1px solid #e8e8e8;
 }
 
 nav {
@@ -116,7 +117,7 @@ nav {
 /* main */
 main {
     margin-top: 54px;
-    min-height: 100%;
+    /* min-height: 100%; */
 }
 
 .banner {
@@ -278,6 +279,7 @@ main {
     border-radius: 5px 5px 0 0;
     width: 100%;
     aspect-ratio: 321/235;
+    object-fit: cover;
 }
 
 .mask {
@@ -350,7 +352,7 @@ main {
     top: 17px;
 }
 
-.close-button:hover, .signin-button:hover, .signup-button:hover, .switch-to-signup, .switch-to-signin:hover, .signin-signup-button, .logout {
+.close-button:hover, .signin-button:hover, .signup-button:hover, .switch-to-signup, .switch-to-signin:hover, .signin-signup-button, .logout, .direct-to-booking-button {
     cursor: pointer;
 }
 
@@ -439,11 +441,12 @@ footer {
     display: flex;
     height: 104px;
     width: 100%;
-    position: relative;
-    bottom: 0;
+    /* position: relative;
+    bottom: 0; */
     background-color: #757575;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 50vh 0 50vh #757575;
 }
 
 .copyright p {
@@ -582,6 +585,7 @@ footer {
 .pic-wrapper img {
     width: 100vw;
     aspect-ratio: 360/350;
+    object-fit: cover;
     min-height: auto;
 }
 
@@ -764,10 +768,6 @@ footer {
 
 @media screen and (min-width: 1200px){
 
-    header {
-        border: 1px solid #e8e8e8;
-    }
-
     .attraction-page-main-container {
         padding-top: 37px;
     }
@@ -823,4 +823,204 @@ footer {
         margin: auto;
         padding: 0 10px;
     }
+}
+
+/* ========== booking.html ========== */
+
+.booking-page-main-container {
+    margin: 54px 0 62px;
+    padding-top: 46px;
+}
+
+.attraction-booking-main-container {
+    margin: 0 10px;
+    color: #666;
+}
+
+.booking-welcome {
+    display: block;
+    margin-bottom:7px;
+    font-size: 16px;
+}
+
+.booking-img {
+    /* height: 256px; */
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.booking-img img {
+    aspect-ratio: 340/200;
+    height: auto;
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+}
+
+.booking-attraction-information {
+    margin-top: 7px;
+}
+
+.booking-title {
+    color: #489;
+    margin-bottom: 30px;
+}
+
+.booking-attraction-information .info {
+    margin-top: 20px;
+}
+
+.delete-button {
+    text-align: right;
+    margin: 5px 0 30px;
+}
+
+.delete-button img:hover {
+    cursor: pointer;
+}
+
+.no-booking {
+    margin-top: 35px;
+    margin-bottom: 40px;
+}
+
+.attraction-booking-main-container hr {
+    border: 0;
+    border-top: 1px solid #e8e8e8;
+}
+
+.user-contact {
+    margin-top: 32px;
+}
+
+.user-contact-header {
+    margin-bottom: 24px;
+}
+
+.user-contact div, .credit-information div {
+    margin-top: 15px;
+}
+
+.user-contact input, .credit-information input {
+    width: 180px;
+    height: 38px;
+    border-radius: 5px;
+    border: 1px solid #e8e8e8;
+    padding: 0 10px;
+}
+
+.contact-warning {
+    margin: 20px 0 40px;
+}
+
+.credit-information {
+    margin: 44px 0 40px;
+}
+
+.booking-price {
+    margin: 40px 0 25px;
+    text-align: right;
+}
+
+.confirm-booking {
+    margin-left: auto;
+    background-color: #489;
+    width: 173px;
+    height: 36px;
+    text-align: center;
+    color: #FFF;
+    border-radius: 5px;
+    line-height: 36px;
+}
+
+@media screen and (min-width: 600px) {
+    
+    .booking-img img {
+        aspect-ratio: unset;
+    }
+
+    .attraction-booking-main-container {
+        width: 80%;
+        margin: auto;
+    }
+
+    .delete-button img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+
+    .attraction-booking-main-container {
+        width: 1200px;
+    }
+
+    .booking-welcome {
+        width: 1000px;
+        margin-left: 120px;
+    }
+
+    .booking-img {
+        width: 266px;
+        height: 200px;
+        margin: 0;
+    }
+
+    .booking-img img {
+        width:260px;
+        aspect-ratio: unset;
+    }
+
+    .booking-title {
+        margin-bottom: 19px;
+    }
+
+    .booking-attraction-information {
+        margin: 0 0 0 20px;
+    }
+
+    .booking-attraction-information .info {
+        margin-top: 11px;
+    }
+
+    .booking-flex-container {
+        display: flex;
+        width: 964px;
+        margin: 30px auto 40px;
+        height: 200px;
+        padding-left: 12px;
+    }
+
+    .delete-button {
+        margin-left: auto;
+    }
+
+    .delete-button img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .no-booking {
+        margin-left: 120px;
+    }
+
+    .user-contact {
+        margin-left: 120px;
+    }
+
+    .credit-information {
+        margin-left: 120px;
+    }
+
+    .booking-price {
+        margin-right: 120px;
+    }
+
+    .confirm-booking {
+        margin-right: 120px;
+    }
+
 }
