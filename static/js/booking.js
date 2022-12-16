@@ -64,13 +64,21 @@ function getBookingData() {
             displayNoneArray.forEach(element => {
                 element.style.display = "block";}
             )
-            const bookingFlexContainer = document.querySelector(".booking-flex-container"); 
+
             const mediaQuery = window.matchMedia("screen and (min-width: 1200px)");
+            const bookingFlexContainer = document.querySelector(".booking-flex-container");
             if (mediaQuery.matches) {
-                bookingFlexContainer.style.display="flex";
+                bookingFlexContainer.style.display = "flex";
             } else {
-                bookingFlexContainer.style.display="block";
+                bookingFlexContainer.style.display = "block";
             }
+            window.addEventListener("resize", () => {
+                if (mediaQuery.matches) {
+                    bookingFlexContainer.style.display = "flex";
+                } else {
+                    bookingFlexContainer.style.display = "block";
+                }
+            });
         }
         if (data.data === null) {
             const noBooking = document.querySelector(".no-booking");
