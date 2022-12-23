@@ -113,17 +113,17 @@
                     <p class="button-bold user-contact-header">您的聯絡資訊</p>
                     <div class="contact-name">
                         <label class="body-medium">聯絡姓名：
-                            <input class="body-medium" type="text">
+                            <input class="body-medium" id="contact-name-input" type="text">
                         </label>
                     </div>
                     <div class="contact-email">
                         <label class="body-medium">聯絡信箱：
-                            <input class="body-medium" type="text">
+                            <input class="body-medium" id="contact-email-input" type="text">
                         </label>
                     </div>
                     <div class="contact-phone">
                         <label class="body-medium">手機號碼：
-                            <input class="body-medium" type="text">
+                            <input class="body-medium" id="contact-phone-input" type="text">
                         </label>
                     </div>
                     <p class="content-bold contact-warning">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</p>
@@ -133,17 +133,17 @@
                     <p class="button-bold">信用卡付款資訊</p>
                     <div class="credit-card-number">
                         <label class="body-medium">卡片號碼：
-                            <input class="body-medium" placeholder="**** **** **** ****" type="text" maxlength="16">
+                            <div class="tpfield" id="card-number"></div>
                         </label>
                     </div>
                     <div class="credit-card-expired-time">
                         <label class="body-medium">過期時間：
-                            <input class="body-medium" placeholder="MM / YY" type="text"maxlength="5">
+                            <div class="tpfield" id="card-expiration-date"></div>
                         </label>
                     </div>
                     <div class="credit-card-ccv">
                         <label class="body-medium">驗證密碼：
-                            <input class="body-medium" placeholder="CVV" type="password" maxlength="3">
+                            <div class="tpfield" id="card-ccv"></div>
                         </label>
                     </div>
                 </div>
@@ -152,11 +152,11 @@
                     <span class="body-bold">總價：</span>
                     <span class="body-bold">新台幣 2000 元</span>
                 </div>
-                <a href="#">
-                    <div class="booking-button" style="display: none;">
-                        <div class="button-regular confirm-booking">確認訂購並付款</div>
-                    </div>
-                </a>
+
+                <button class="booking-button button-regular" id="submit" style="display: none;" onclick="onSubmit(event)" disabled>
+                    確認訂購並付款
+                </button>
+
                     
             </div>
 
@@ -172,6 +172,8 @@
     </footer>
     <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
+    <script src="{{ url_for('static', filename='js/order.js') }}"></script>
 </body>
 
 </html>
