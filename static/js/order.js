@@ -90,10 +90,17 @@ function onSubmit(event) {
         // send prime to your server, to pay with Pay by Prime API .
 
         const orderUrl = "/api/orders";
+        let amount;
+        if (attractionData.time === "morning") {
+            amount = 2000;
+        }
+        if (attractionData.time === "afternoon") {
+            amount = 2500;
+        }
         const ordersData = {
             "prime": result.card.prime,
             "order": {
-                "price": 2000,
+                "price": amount,
                 "trip": {
                 "attraction": {
                     "id": attractionData.id,

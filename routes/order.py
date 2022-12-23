@@ -94,7 +94,7 @@ def submit_order():
             "prime": order_prime,
             "partner_key": partner_key,
             "merchant_id": "bozemendless_CTBC",
-            "amount": order_price,
+            "amount": amount,
             "order_number": order_number,
             "details": order_attraction_name,
             "cardholder": {
