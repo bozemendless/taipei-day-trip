@@ -1,27 +1,41 @@
 const bookingUrl = "/api/booking"
 
 // Get booking data
+const attractionData = {
+    "id": null,
+    "name": null,
+    "address": null,
+    "image": null,
+    "date": null,
+    "time": null
+};
 function getBookingData() {
     fetch(bookingUrl)
     .then(res => {return res.json();})
     .then(data => {
         if (data.data !== null) {
+            attractionData.id = data.data.attractions.id;
+            attractionData.name = data.data.attractions.name;
+            attractionData.address = data.data.attractions.address;
+            attractionData.image = data.data.attractions.image;
+            attractionData.date = data.data.date;
+            attractionData.time = data.data.time;
             // Render img
             const bookingImgDiv = document.querySelector(".booking-img");
             const img = document.createElement("img");
-            img.src = data.data.attractions.image;
+            img.src = attractionData.image;
             bookingImgDiv.appendChild(img);
             // Render attraction name
             const bookingTitleDiv = document.querySelector(".booking-title");
             const bookingName = document.createElement("span");
-            bookingName.className = "button-bold";
-            const bookingNameText = document.createTextNode(data.data.attractions.name);
+            bookingName.className = "body-bold";
+            const bookingNameText = document.createTextNode(attractionData.name);
             bookingName.appendChild(bookingNameText);
             bookingTitleDiv.appendChild(bookingName);
             // Render booking date
             const bookingDateDiv = document.querySelector(".booking-date");
             const bookingDateSpan = document.createElement("span");
-            const bookingDateSpanText = document.createTextNode(data.data.date);
+            const bookingDateSpanText = document.createTextNode(attractionData.date);
             bookingDateSpan.className = "body-medium";
             bookingDateSpan.appendChild(bookingDateSpanText);
             bookingDateDiv.appendChild(bookingDateSpan);
@@ -46,7 +60,7 @@ function getBookingData() {
             // Render booking address
             const bookingPlaceDiv = document.querySelector(".booking-place");
             const bookingPlaceSpan = document.createElement("span");
-            const bookingPlaceSpanText = document.createTextNode(data.data.attractions.address);
+            const bookingPlaceSpanText = document.createTextNode(attractionData.address);
             bookingPlaceSpan.className = "body-medium";
             bookingPlaceSpan.appendChild(bookingPlaceSpanText);
             bookingPlaceDiv.appendChild(bookingPlaceSpan);
