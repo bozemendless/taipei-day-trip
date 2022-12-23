@@ -5,8 +5,7 @@ const getOrderDataUrl = `/api/order/${orderNumber}`;
 fetch(getOrderDataUrl)
 .then(res => {return res.json();})
 .then(data => {
-    // If order number exists
-    if (data.data !== null & data.data.status === 0) {
+    function showOrderExist() {
         // Fix RWD
         const mediaQuery = window.matchMedia("screen and (min-width: 1200px)");
         const bookingFlexContainer = document.querySelector(".booking-flex-container");
@@ -84,8 +83,7 @@ fetch(getOrderDataUrl)
         bookingPlaceSpan.className = "body-medium";
     }
 
-    // If order number not exist
-    if (data.data === null | data.data.status !== 0) {
+    function showOrderNotExist() {
         // Show words of thanks
         const thanksForPurchase = document.querySelector(".thanks-for-purchase");
         thanksForPurchase.textContent = "Oops！您的訂單似乎出現錯誤。";
@@ -97,4 +95,19 @@ fetch(getOrderDataUrl)
         const noOrderNumberInformation = document.querySelector(".no-booking");
         noOrderNumberInformation.style = "display: block;";
     }
+    // If order number exists
+    if (data.data !== null) {
+        // If status code is 0
+        if (data.data.status === 0) {
+            showOrderExist();
+        } else { // If status code is not 0 (error occurs)
+            showOrderNotExist();
+        }
+    }
+
+    // If order number not exist
+    if (data.data === null) {
+        showOrderNotExist();
+    }
 })
+
