@@ -899,16 +899,17 @@ footer {
     margin-bottom: 24px;
 }
 
-.user-contact div, .credit-information div {
+.user-contact div, .credit-card-number, .credit-card-expired-time, .credit-card-ccv {
     margin-top: 15px;
 }
 
-.user-contact input, .credit-information input {
+.user-contact input, .tpfield {
     width: 180px;
     height: 38px;
     border-radius: 5px;
     border: 1px solid #e8e8e8;
     padding: 0 10px;
+    outline: 0;
 }
 
 .contact-warning {
@@ -919,12 +920,18 @@ footer {
     margin: 44px 0 40px;
 }
 
+.tpfield {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 0;
+}
+
 .booking-price {
     margin: 40px 0 25px;
     text-align: right;
 }
 
-.confirm-booking {
+.booking-button {
     margin-left: auto;
     background-color: #489;
     width: 173px;
@@ -933,6 +940,16 @@ footer {
     color: #FFF;
     border-radius: 5px;
     line-height: 36px;
+    border: 0;
+}
+
+.booking-button:hover {
+    background-color: #4697ab;
+    cursor: pointer;
+}
+
+.booking-button[disabled] {
+    cursor: not-allowed;
 }
 
 @media screen and (min-width: 600px) {
@@ -1019,7 +1036,7 @@ footer {
         margin-right: 120px;
     }
 
-    .confirm-booking {
+    .booking-button {
         margin-right: 120px;
     }
 

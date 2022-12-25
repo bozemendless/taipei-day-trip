@@ -1,6 +1,7 @@
 from routes.booking import booking_bp
 from routes.auth import auth
 from routes.attraction import attraction_bp
+from routes.order import order_bp
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -12,6 +13,7 @@ app.config["SECRET_KEY"] = "192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d
 app.register_blueprint(attraction_bp)
 app.register_blueprint(auth)
 app.register_blueprint(booking_bp)
+app.register_blueprint(order_bp)
 
 # Pages
 
@@ -34,6 +36,5 @@ def booking():
 @app.route("/thankyou")
 def thankyou():
     return render_template("thankyou.html")
-
 
 app.run(host="0.0.0.0", port=3000)

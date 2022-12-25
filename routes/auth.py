@@ -33,7 +33,6 @@ def signup():
             email_result = website_cursor.fetchone()
             # If exists
             if email_result != None:
-                connection_object.close()
                 error = "重複的 email "
                 res = {
                     "error": True,
@@ -45,7 +44,6 @@ def signup():
             val = (name, email, password)
             website_cursor.execute(sql, val)
             connection_object.commit()
-            connection_object.close()
             res = {
                 "ok": True
             }
@@ -57,6 +55,14 @@ def signup():
             "message": error
         }
         return res, 500
+
+    # Close cursor and connection
+    finally:
+        try:
+            website_cursor.close()
+            connection_object.close()
+        except Exception as e:
+            print(e)
 
 
 @auth.route("/api/user/auth", methods=["GET", "PUT", "DELETE"])
@@ -99,6 +105,7 @@ def userAuth():
                 "message": error
             }
             return res, 500
+
     # PUT method # Log in
     if request.method == "PUT":
         try:
@@ -120,7 +127,6 @@ def userAuth():
                 val = (email, password)
                 website_cursor.execute(sql, val)
                 login_result = website_cursor.fetchone()  # (id, name) or None
-                connection_object.close()
                 # Not correct
                 if login_result == None:
                     error = "帳號或密碼錯誤"
@@ -150,6 +156,15 @@ def userAuth():
                 "message": error
             }
             return res, 500
+
+        # Close cursor and connection
+        finally:
+            try:
+                website_cursor.close()
+                connection_object.close()
+            except Exception as e:
+                print(e)
+
     # DELETE method # Log out
     try:
         if request.method == "DELETE":

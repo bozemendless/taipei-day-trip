@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %} 感謝您的預定 {% endblock %}
+{% block pre_sign %}
+    <main>
+        <div class="booking-page-main-container">
+{% endblock %}
+{% block content %}
+            <div class="attraction-booking-main-container">
+                <p class="booking-welcome button-bold">
+                    <span class="thanks-for-purchase button-bold"></span><br/><br/>
+                    <span class="body-medium">訂單編號：
+                        <span class="order-number body-medium"></span></span><br/>
+                    <span class="body-medium">您預定的行程如下：</span>
+                </p>
+                <div class="booking-flex-container" style="display: none;">
+                    <div class="booking-img">
+                        <!-- <img src="https://picsum.photos/300/256" alt=""> -->
+                    </div>
+                    <div class="booking-attraction-information">
+                        <div class="booking-title">
+                            <span class="body-bold">台北一日遊：</span>
+                            <!-- <span class="body-bold">平安鐘</span> -->
+                        </div>
+                        <div class="booking-date info">
+                            <span class="body-bold">日期：</span>
+                            <!-- <span class="body-medium">2021-04-23</span> -->
+                        </div>
+                        <div class="booking-time info">
+                            <span class="body-bold">時間：</span>
+                            <!-- <span class="body-medium">早上 9 點到下午 4 點</span> -->
+                        </div>
+                        <div class="booking-fee info">
+                            <span class="body-bold">費用：</span>
+                            <span class="body-medium">新台幣 <span class="booking-fee-inner body-medium"></span></span>
+                        </div>
+                        <div class="booking-place info">
+                            <span class="body-bold">地點：</span>
+                            <!-- <span class="body-medium">臺北市 大安區忠孝東路4段</span> -->
+                        </div>
+                        
+                    </div>
+                </div>
+                <p class="booking-welcome content-bold contact-warning">導覽人員將用手機與您聯繫，請務必保持手機暢通，準時到達。</p>
+                <p class="no-booking body-medium" style="display: none;">查無訂單資訊</p>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block script %}
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/thankyou.js') }}"></script>
+{% endblock %}

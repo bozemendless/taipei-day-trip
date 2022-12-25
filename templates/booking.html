@@ -1,78 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <title>台北一日遊 - 預定行程</title>
-</head>
-
-<body>
-    <header>
-        <nav>
-            <a href="/">
-                <div class="logo">台北一日遊</div>
-            </a>
-            <div class="items">
-                <li class="direct-to-booking-button">預定行程</li>
-                <li class="signin-signup-button" style="display: none;">登入/註冊</li>
-                <li class="logout" style="display: none;">登出系統</li>
-            </div>
-        </nav>
-    </header>
+{% extends "base.html" %}
+{% block title %} 台北一日遊 - 預定行程 {% endblock %}
+{% block pre_sign %}
     <main>
         <div class="booking-page-main-container">
-            <div class="sign-in">
-                <div class="decorator-bar"></div>
-                <div class="close-button">
-                    <img src="/static/img/close.png" alt="">
-                </div>
-                <div class="signin-title">
-                    <span class="h3-bold">登入會員帳號</span>
-                </div>
-                <div class="signin-info">
-                    <input type="email" class="body-medium" id="signin-email" placeholder="輸入電子信箱" required>
-                    <input type="password" class="body-medium" id="signin-password" placeholder="輸入密碼" required>
-                </div>
-                <div class="signin-button">
-                    <div class="button-regular">登入帳戶</div>
-                </div>
-                <div class="signin-signup">
-                    <span class="switch-to-signup body-medium">還沒有帳戶？點此註冊</span>
-                </div>
-                <div class="signin-message">
-                    <span></span>
-                </div>
-            </div>
-            <div class="sign-up">
-                <div class="decorator-bar"></div>
-                <div class="close-button">
-                    <img src="/static/img/close.png" alt="">
-                </div>
-                <div class="signup-title">
-                    <span class="h3-bold">註冊會員帳號</span>
-                </div>
-                <div class="signup-info">
-                    <input type="text" class="body-medium" id="signup-name" placeholder="輸入姓名" required>
-                    <input type="email" class="body-medium" id="signup-email" placeholder="輸入電子郵件" required>
-                    <input type="password" class="body-medium" id="signup-password" placeholder="輸入密碼" required>
-                </div>
-                <div class="signup-button">
-                    <div class="button-regular">註冊新帳戶</div>
-                </div>
-                <div class="signin-signup">
-                    <span class="switch-to-signin body-medium">已經有帳戶了？點此登入</span>
-                </div>
-                <div class="signup-message">
-                    <span></span>
-                </div>
-            </div>
-            <div class="lightbox-mask"></div>
+{% endblock %}
+{% block content %}
             <div class="attraction-booking-main-container">
                 <p class="booking-welcome button-bold">
                     您好，<span class="username button-bold"></span>，待預定的行程如下：
@@ -113,17 +45,17 @@
                     <p class="button-bold user-contact-header">您的聯絡資訊</p>
                     <div class="contact-name">
                         <label class="body-medium">聯絡姓名：
-                            <input class="body-medium" type="text">
+                            <input class="body-medium" id="contact-name-input" maxlength="20" type="text">
                         </label>
                     </div>
                     <div class="contact-email">
                         <label class="body-medium">聯絡信箱：
-                            <input class="body-medium" type="text">
+                            <input class="body-medium" id="contact-email-input" maxlength="64" type="text">
                         </label>
                     </div>
                     <div class="contact-phone">
                         <label class="body-medium">手機號碼：
-                            <input class="body-medium" type="text">
+                            <input class="body-medium" id="contact-phone-input" maxlength="10" type="text">
                         </label>
                     </div>
                     <p class="content-bold contact-warning">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</p>
@@ -133,17 +65,17 @@
                     <p class="button-bold">信用卡付款資訊</p>
                     <div class="credit-card-number">
                         <label class="body-medium">卡片號碼：
-                            <input class="body-medium" placeholder="**** **** **** ****" type="text" maxlength="16">
+                            <div class="tpfield" id="card-number"></div>
                         </label>
                     </div>
                     <div class="credit-card-expired-time">
                         <label class="body-medium">過期時間：
-                            <input class="body-medium" placeholder="MM / YY" type="text"maxlength="5">
+                            <div class="tpfield" id="card-expiration-date"></div>
                         </label>
                     </div>
                     <div class="credit-card-ccv">
                         <label class="body-medium">驗證密碼：
-                            <input class="body-medium" placeholder="CVV" type="password" maxlength="3">
+                            <div class="tpfield" id="card-ccv"></div>
                         </label>
                     </div>
                 </div>
@@ -152,11 +84,11 @@
                     <span class="body-bold">總價：</span>
                     <span class="body-bold">新台幣 2000 元</span>
                 </div>
-                <a href="#">
-                    <div class="booking-button" style="display: none;">
-                        <div class="button-regular confirm-booking">確認訂購並付款</div>
-                    </div>
-                </a>
+
+                <button class="booking-button button-regular" id="submit" style="display: none;" onclick="onSubmit(event)" disabled>
+                    確認訂購並付款
+                </button>
+
                     
             </div>
 
@@ -165,13 +97,10 @@
 
 
     </main>
-    <footer>
-        <div class="copyright">
-            <p class="body-bold">COPYRIGHT&nbsp;&copy;&nbsp;2021&nbsp;台北一日遊</p>
-        </div>
-    </footer>
+{% endblock %}
+{% block script %}
     <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
-</body>
-
-</html>
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
+    <script src="{{ url_for('static', filename='js/order.js') }}"></script>
+{% endblock %}
