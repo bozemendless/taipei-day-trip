@@ -129,7 +129,7 @@ def submit_order():
             val = (user_id,)
             website_cursor.execute(sql, val)
             connection_object.commit()
-            website_cursor.close()
+            connection_object.close()
             res = {
                 "data": {
                     "number": order_number,
