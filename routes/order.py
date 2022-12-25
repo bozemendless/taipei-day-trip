@@ -29,7 +29,7 @@ def submit_order():
     try:
         # Get payment data from front-end request
         order_prime = request.json["prime"]
-        order_price = request.json["order"]["price"]
+        # order_price = request.json["order"]["price"]
         order_attraction_id = request.json["order"]["trip"]["attraction"]["id"]
         order_attraction_name = request.json["order"]["trip"]["attraction"]["name"]
         # order_attraction_address = request.json["order"]["trip"]["attraction"]["address"]
@@ -122,6 +122,11 @@ def submit_order():
             connection_object.commit()
             sql = "UPDATE `order` SET `order_status` = 'paid' WHERE `order_number` = %s"
             val = (order_number,)
+            website_cursor.execute(sql, val)
+            connection_object.commit()
+            # DELETE booking data after successful ordering
+            sql = "DELETE FROM `booking` WHERE `user_id` = %s"
+            val = (user_id,)
             website_cursor.execute(sql, val)
             connection_object.commit()
             website_cursor.close()
