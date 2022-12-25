@@ -948,6 +948,10 @@ footer {
     cursor: pointer;
 }
 
+.booking-button[disabled] {
+    cursor: not-allowed;
+}
+
 @media screen and (min-width: 600px) {
     
     .booking-img img {

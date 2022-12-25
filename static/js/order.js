@@ -53,8 +53,8 @@ TPDirect.card.setup({
     }
 })
 
+const submitButton = document.querySelector("#submit");
 TPDirect.card.onUpdate(function (update) {
-    const submitButton = document.querySelector("#submit");
     // update.canGetPrime === true
     // --> you can call TPDirect.card.getPrime()
     if (update.canGetPrime) {
@@ -62,13 +62,17 @@ TPDirect.card.onUpdate(function (update) {
         submitButton.removeAttribute("disabled");
     } else {
         // Disable submit Button to get prime.
-        submitButton.setAttribute('disabled', true)
+        submitButton.setAttribute("disabled", true);
     }
 
 })
 
 function onSubmit(event) {
     event.preventDefault()
+    submitButton.setAttribute("disabled", true);
+    setTimeout(() => {
+        submitButton.removeAttribute("disabled");
+    }, 3000)
 
     // 取得 TapPay Fields 的 status
     const tappayStatus = TPDirect.card.getTappayFieldsStatus()
