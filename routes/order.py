@@ -129,7 +129,6 @@ def submit_order():
             val = (user_id,)
             website_cursor.execute(sql, val)
             connection_object.commit()
-            connection_object.close()
             res = {
                 "data": {
                     "number": order_number,
@@ -152,7 +151,6 @@ def submit_order():
             val = (resp["status"], resp["msg"], order_number)
             website_cursor.execute(sql, val)
             connection_object.commit()
-            connection_object.close()
             res = {
                 "data": {
                     "number": order_number,
@@ -171,6 +169,14 @@ def submit_order():
             "message": error
         }
         return res, 500
+
+    # Close cursor and connection
+    finally:
+        try:
+            website_cursor.close()
+            connection_object.close()
+        except Exception as e:
+            print(e)
 
 @order_bp.route("/api/order/<order_number>")
 # Get trip and order information from database
@@ -214,7 +220,6 @@ def get_order_data(order_number):
             val = (order_number,)
             website_cursor.execute(sql, val)
             order_result = website_cursor.fetchone()
-            connection_object.close()
 
             # Order_number not exist
             if order_result == None:
@@ -252,3 +257,11 @@ def get_order_data(order_number):
             "message": error
         }
         return res, 500
+
+    # Close cursor and connection
+    finally:
+        try:
+            website_cursor.close()
+            connection_object.close()
+        except Exception as e:
+            print(e)

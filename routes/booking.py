@@ -38,6 +38,7 @@ def attractionBooking():
                 val = (id,)
                 website_cursor.execute(sql, val)
                 bookingResult = website_cursor.fetchone()
+                website_cursor.close()
                 connection_object.close()
                 if bookingResult == None: # Booking data not exist
                     res = {
@@ -163,7 +164,6 @@ def attractionBooking():
                     val = (user_id,)
                     website_cursor.execute(sql, val)
                     connection_object.commit()
-                    connection_object.close()
                     res = {
                         "ok": True
                     }
@@ -175,3 +175,11 @@ def attractionBooking():
                 "message": error
             }
             return res, 500
+
+        # Close cursor and connection
+        finally:
+            try:
+                website_cursor.close()
+                connection_object.close()
+            except Exception as e:
+                print(e)

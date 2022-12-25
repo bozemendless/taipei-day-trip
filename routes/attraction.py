@@ -44,8 +44,6 @@ def attractions():
                 website_cursor.execute(sql, val)
                 attractions_result = website_cursor.fetchall()
 
-            connection_object.close()
-
             # Deal with the response from database then return the response
             next_page = page + 1
             if number_of_row - (page + 1) * 12 <= 0:
@@ -81,6 +79,14 @@ def attractions():
         }
         return res, 500
 
+    # Close cursor and connection
+    finally:
+        try:
+            website_cursor.close()
+            connection_object.close()
+        except Exception as e:
+            print(e)
+
 
 @attraction_bp.route("/api/attraction/<id>")
 def attractionId(id):
@@ -99,8 +105,6 @@ def attractionId(id):
             website_cursor.execute(sql, val)
 
             attractions_result = website_cursor.fetchone()
-
-            connection_object.close()
 
             # Deal with the response from database then return the response
             # Error handler 400
@@ -139,6 +143,14 @@ def attractionId(id):
         }
         return res, 500
 
+    # Close cursor and connection
+    finally:
+        try:
+            website_cursor.close()
+            connection_object.close()
+        except Exception as e:
+            print(e)
+
 
 @attraction_bp.route("/api/categories")
 def categories():
@@ -158,8 +170,6 @@ def categories():
 
             categories_result = website_cursor.fetchall()
 
-            connection_object.close()
-
             # Deal with the response from database then return the response
             categories = [category[0] for category in categories_result]
 
@@ -177,3 +187,11 @@ def categories():
             "message": error
         }
         return res, 500
+
+    # Close cursor and connection
+    finally:
+        try:
+            website_cursor.close()
+            connection_object.close()
+        except Exception as e:
+            print(e)
