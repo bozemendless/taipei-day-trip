@@ -1,11 +1,15 @@
 from flask import Blueprint, request
 import requests
 import time
-from model.tappay import partner_key
+import os
+from dotenv import load_dotenv
 from flask import session
 import jwt
 from routes.auth import jwt_secret
 from model.model import mydb
+
+load_dotenv()
+partner_key = os.getenv("partner_key")
 
 order_bp = Blueprint("order", __name__)
 
