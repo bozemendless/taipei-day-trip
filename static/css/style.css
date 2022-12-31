@@ -114,6 +114,10 @@ nav {
     line-height: 34px;
 }
 
+.items li:hover {
+    color: #888;
+}
+
 /* main */
 main {
     margin-top: 54px;
@@ -139,6 +143,7 @@ main {
     margin: 0 20px;
     top: 0;
     width: 100%;
+    pointer-events: none;
 }
 
 .slogan-div .header {
@@ -191,7 +196,7 @@ main {
     width: 100%;
 }
 
-.search-div input:focus {
+input:focus {
     outline: none;
 }
 
@@ -370,6 +375,15 @@ main {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+.sign-in input:focus, .sign-up input:focus {
+    outline: 2px solid #888;
+    border: 1px solid #FFF;
+}
+
+input:focus:invalid {
+    outline: 1px solid red;
 }
 
 .signin-button, .signup-button {
@@ -705,6 +719,12 @@ footer {
 .fee-2000, .fee-2500 {
     visibility: hidden;
     position: absolute;
+}
+
+.blank-warning {
+    font-size: 16px;
+    color: red;
+    margin-left: 15px;
 }
 
 .start-book-button {

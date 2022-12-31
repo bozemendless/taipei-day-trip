@@ -117,6 +117,20 @@ function createBooking() {
         time = "afternoon"
         price = 2500;
     }
+    if (!firstHalfDay.checked & !secondHalfDay.checked) {
+        const inputTimeDiv = document.querySelector(".time")
+        const noTime = document.createElement("span");
+        noTime.textContent = "請選擇時間";
+        noTime.classList.add("blank-warning");
+        inputTimeDiv.appendChild(noTime)
+    }
+    if (date.value === "") {
+        const inputDateDiv = document.querySelector(".date");
+        const noDate = document.createElement("span");
+        noDate.textContent = "請選擇日期";
+        noDate.classList.add("blank-warning");
+        inputDateDiv.appendChild(noDate);
+    }
     const attraction = {
         "attractionId": attractionId,
         "date": date.value,
@@ -161,12 +175,14 @@ function deleteBooking() {
 
 
 // Get booking data when loading /booking
-if (location.pathname == "/booking") {
+if (location.pathname === "/booking") {
     getBookingData();
 }
 
 // DELETE booking
-const deleteButton = document.querySelector(".delete-button");
-deleteButton.addEventListener("click", () => {
-    deleteBooking();
-})
+if (location.pathname === "/booking") {
+    const deleteButton = document.querySelector(".delete-button");
+    deleteButton.addEventListener("click", () => {
+        deleteBooking();
+    });
+}
