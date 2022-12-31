@@ -35,8 +35,8 @@
                     <span class="h3-bold">登入會員帳號</span>
                 </div>
                 <div class="signin-info">
-                    <input type="email" class="body-medium" id="signin-email" placeholder="輸入電子信箱" required>
-                    <input type="password" class="body-medium" id="signin-password" placeholder="輸入密碼" required>
+                    <input type="email" class="body-medium" id="signin-email" placeholder="輸入電子信箱" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="請輸入有效的 email 地址" />
+                    <input type="password" class="body-medium" id="signin-password" placeholder="輸入密碼" maxlength="128" />
                 </div>
                 <div class="signin-button">
                     <div class="button-regular">登入帳戶</div>
@@ -57,9 +57,9 @@
                     <span class="h3-bold">註冊會員帳號</span>
                 </div>
                 <div class="signup-info">
-                    <input type="text" class="body-medium" id="signup-name" placeholder="輸入姓名" required>
-                    <input type="email" class="body-medium" id="signup-email" placeholder="輸入電子郵件" required>
-                    <input type="password" class="body-medium" id="signup-password" placeholder="輸入密碼" required>
+                    <input type="text" class="body-medium" id="signup-name" placeholder="輸入姓名" pattern="^[\u4e00-\u9fa5a-zA-Z]+[\u4e00-\u9fa5a-zA-Z\s*]+[\u4e00-\u9fa5a-zA-Z]$" maxlength="20"/>
+                    <input type="email" class="body-medium" id="signup-email" placeholder="輸入電子郵件" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="請輸入有效的 email 地址" />
+                    <input type="password" class="body-medium" id="signup-password" placeholder="輸入密碼" maxlength="128"/>
                 </div>
                 <div class="signup-button">
                     <div class="button-regular">註冊新帳戶</div>
