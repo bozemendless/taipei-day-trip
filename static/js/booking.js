@@ -117,6 +117,12 @@ function createBooking() {
         time = "afternoon"
         price = 2500;
     }
+
+    // Prevent repeated warning messages
+    document.querySelectorAll('.blank-warning').forEach( warning => {
+        warning.remove();
+    });
+
     if (!firstHalfDay.checked & !secondHalfDay.checked) {
         const inputTimeDiv = document.querySelector(".time")
         const noTime = document.createElement("span");
