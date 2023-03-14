@@ -2,7 +2,7 @@
 
 Taipei Day Trip is a travel e-commerce website developed using a front-end and back-end separation architecture, which includes a membership system and payment gateway integration.
 
-Visit the website at https://taipei-day-trip.shichenx.com/
+Visit the website at <a href="https://taipei-day-trip.shichenx.com/" target="_blank">https://taipei-day-trip.shichenx.com/</a>
 
 ```
 Feel free to use the following test account or register for your own account:
