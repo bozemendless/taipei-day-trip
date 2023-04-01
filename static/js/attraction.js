@@ -128,3 +128,24 @@ fetch(url).then(res => {
         spotUpdate();
     });
 });
+
+// Restrict booking date cannot be past time
+if (location.pathname.startsWith("/attraction/")) {
+    const now = new Date();
+    if (now.getDate() < 10) {
+        date = "0" + now.getDate().toString();
+    } else {
+        date = now.getDate();
+    }
+    
+    if (now.getMonth() < 9) {
+        month = "0" + (now.getMonth() + 1).toString();
+    } else {
+        month = now.getMonth() + 1;
+    }
+
+    year = now.getFullYear();
+    const yyyymmdd = `${year}-${month}-${date}`;
+    const dateInput = document.querySelector("#date-input");
+    dateInput.setAttribute("min", yyyymmdd);
+}

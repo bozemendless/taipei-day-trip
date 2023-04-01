@@ -10,6 +10,7 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("/api/user", methods=["POST"])
 def signup():
+    # Try to deal with user signup data
     try:
         # Check if column contains blank values
         name = request.json["name"]
@@ -22,6 +23,15 @@ def signup():
                 "message": error
             }
             return res, 400
+    except:
+        error = "欄位格式錯誤"
+        res = {
+            "error": True,
+            "message": error
+        }
+        return res, 400
+    # Try to sign up
+    try:
         # Connect to connection pool
         connection_object = mydb.get_connection()
         if connection_object.is_connected():
@@ -55,7 +65,6 @@ def signup():
             "message": error
         }
         return res, 500
-
     # Close cursor and connection
     finally:
         try:
@@ -119,7 +128,15 @@ def userAuth():
                     "message": error
                 }
                 return res, 400
-            # Check if the logging info corrects
+        except:
+            error = "帳號、密碼不得空白"
+            res = {
+                "error": True,
+                "message": error
+            }
+            return res, 400
+        # Check if the logging info corrects
+        try:
             connection_object = mydb.get_connection()
             if connection_object.is_connected():
                 website_cursor = connection_object.cursor()
@@ -156,7 +173,6 @@ def userAuth():
                 "message": error
             }
             return res, 500
-
         # Close cursor and connection
         finally:
             try:

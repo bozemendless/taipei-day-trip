@@ -45,17 +45,17 @@
                     <p class="button-bold user-contact-header">您的聯絡資訊</p>
                     <div class="contact-name">
                         <label class="body-medium">聯絡姓名：
-                            <input class="body-medium" id="contact-name-input" maxlength="20" type="text">
+                            <input class="body-medium" id="contact-name-input" maxlength="20" type="text" pattern="^[\u4e00-\u9fa5a-zA-Z]+[\u4e00-\u9fa5a-zA-Z\s*]+[\u4e00-\u9fa5a-zA-Z]$" maxlength="20" />
                         </label>
                     </div>
                     <div class="contact-email">
                         <label class="body-medium">聯絡信箱：
-                            <input class="body-medium" id="contact-email-input" maxlength="64" type="text">
+                            <input class="body-medium" id="contact-email-input" maxlength="64" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="請輸入有效的 email 地址" />
                         </label>
                     </div>
                     <div class="contact-phone">
                         <label class="body-medium">手機號碼：
-                            <input class="body-medium" id="contact-phone-input" maxlength="10" type="text">
+                            <input class="body-medium" id="contact-phone-input" maxlength="10" type="text" pattern="^09+\d{8}">
                         </label>
                     </div>
                     <p class="content-bold contact-warning">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</p>
